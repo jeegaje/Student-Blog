@@ -171,45 +171,80 @@
   <div class="nav-scroller py-1 mb-2">
     <nav class="nav d-flex justify-content-between">
       @foreach ($categories as $category)
-      <a class="p-2 link-secondary" href="category/{{ $category->slug }}">{{ $category->name }}</a>
+      <a class="p-2 link-secondary" href="/category/{{ $category->slug }}">{{ $category->name }}</a>
       @endforeach
     </nav>
   </div>
 </div>
 
 <main class="container">
-  @if ($blogs)
-  <div class="p-4 p-md-5 mb-4 rounded text-bg-dark">
-    <div class="col-md-6 px-0">
-      <h1 class="display-4 fst-italic">{{ $blogs[0]->title }}</h1>
-      <p class="lead my-3">{{ $blogs[0]->excerpt }}</p>
-      <p class="lead mb-0"><a href="/category/{{ $blogs[0]->category->slug }}/{{ $blogs[0]->slug }}" class="text-white fw-bold">Continue reading...</a></p>
+  <div class="row g-5">
+    <div class="col-md-8">
+      <article class="blog-post">
+        <h2 class="blog-post-title mb-1">About Writer</h2>
+        <p>Nama : {{ $author->name }}</p>
+        <p>Email : {{ $author->email }}</p>
+        <p class="">Customize this section to tell your visitors a little bit about your publication, writers, content, or something else entirely. Totally up to you.</p>
+        <nav class="blog-pagination" aria-label="Pagination">
+          <a class="btn btn-outline-primary rounded-pill" href="/">Back to Home</a>
+        </nav>
+      </article>
+      <div class="">
+        <div class="row mb-2">
+            <h3>Blogs from Author</h3>
+            <hr>
+            @foreach ($author_blogs as $blog)
+            <div class="col-md-6">
+              <div class="row g-0 border rounded overflow-hidden flex-md-row mb-4 shadow-sm  position-relative">
+                <div class="col p-4 d-flex flex-column position-static">
+                  <strong class="d-inline-block mb-2 text-primary">{{ $blog->category->name }}</strong>
+                  <h3 class="mb-0">{{ $blog->title }}</h3>
+                  <div class="mb-1 text-body-secondary">{{ $blog->published_at }}</div>
+                  <p class="card-text mb-auto">{{ $blog->excerpt }}</p>
+                  <a href="/category/{{ $blog->category->slug }}/{{ $blog->slug }}" class="stretched-link">Continue reading</a>
+                </div>
+              </div>
+            </div>   
+            @endforeach
+        </div>
+      </div>
+    </div>
+
+    <div class="col-md-4">
+      <div class="position-sticky" style="top: 2rem;">
+        <div class="p-4">
+          <h4 class="fst-italic">Archives</h4>
+          <ol class="list-unstyled mb-0">
+            <li><a href="#">March 2021</a></li>
+            <li><a href="#">February 2021</a></li>
+            <li><a href="#">January 2021</a></li>
+            <li><a href="#">December 2020</a></li>
+            <li><a href="#">November 2020</a></li>
+            <li><a href="#">October 2020</a></li>
+            <li><a href="#">September 2020</a></li>
+            <li><a href="#">August 2020</a></li>
+            <li><a href="#">July 2020</a></li>
+            <li><a href="#">June 2020</a></li>
+            <li><a href="#">May 2020</a></li>
+            <li><a href="#">April 2020</a></li>
+          </ol>
+        </div>
+
+        <div class="p-4">
+          <h4 class="fst-italic">Elsewhere</h4>
+          <ol class="list-unstyled">
+            <li><a href="#">GitHub</a></li>
+            <li><a href="#">Twitter</a></li>
+            <li><a href="#">Facebook</a></li>
+          </ol>
+        </div>
+      </div>
     </div>
   </div>
 
-  <div class="row mb-2">
-    @foreach ($blogs as $blog)
-      <div class="col-md-6">
-        <div class="row g-0 border rounded overflow-hidden flex-md-row mb-4 shadow-sm  position-relative">
-          <div class="col p-4 d-flex flex-column position-static">
-            <strong class="d-inline-block mb-2 text-primary">{{ $blog->category->name }}</strong>
-            <h3 class="mb-0">{{ $blog->title }}</h3>
-            <div class="mb-1 text-body-secondary">{{ date_format(date_create($blog->published_at),"d M Y") }}</div>
-            <p class="card-text mb-auto">{{ $blog->excerpt }}</p>
-            <a href="/category/{{ $blog->category->slug }}/{{ $blog->slug }}" class="stretched-link">Continue reading</a>
-          </div>
-          <div class="col-auto d-none d-lg-block">
-            <svg class="bd-placeholder-img" width="200" height="250" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: Thumbnail" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title><rect width="100%" height="100%" fill="#55595c"/><text x="50%" y="50%" fill="#eceeef" dy=".3em">Thumbnail</text></svg>
-          </div>
-        </div>
-      </div>
-    @endforeach   
-  </div>
-  @else
-      <h1>No Posts Yet</h1>
-  @endif
-
 </main>
+
+
 
 <footer class="blog-footer">
   <p>Blog template built for <a href="https://getbootstrap.com/">Bootstrap</a> by <a href="https://twitter.com/mdo">@mdo</a>.</p>

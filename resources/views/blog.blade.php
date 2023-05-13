@@ -184,7 +184,8 @@
     <div class="col-md-8">
       <article class="blog-post">
         <h2 class="blog-post-title mb-1">{{ $blog->title }}</h2>
-        <p class="blog-post-meta">{{ date_format(date_create($blog->published_at),"d M Y") }} By <a href="#">{{ $blog->author->name }}</a></p>
+        <p class="blog-post-meta">{{ date_format(date_create($blog->published_at),"d M Y") }}</p>
+        <img src="/assets/city.jpg" class="img-fluid" alt="">
         <p>{!! $blog->body !!}</p>
         <nav class="blog-pagination" aria-label="Pagination">
           <a class="btn btn-primary rounded-pill" href="/category/{{ $blog->category->slug }}">More blogs about {{ $blog->category->name }}</a>
@@ -219,6 +220,7 @@
           <hr>
           <h3><u>{{ $blog->author->name }}</u></h3>
           <p class="mb-0">Customize this section to tell your visitors a little bit about your publication, writers, content, or something else entirely. Totally up to you.</p>
+          <a href="/author/{{ $blog->author->name }}">View Profile</a>
         </div>
 
         <div class="p-4">
